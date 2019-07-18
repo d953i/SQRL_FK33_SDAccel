@@ -1,1 +1,1 @@
-# SQRL FK33 SDAccel board support package and examples
+# SQRL FK33 SDAccel BSP and examples
