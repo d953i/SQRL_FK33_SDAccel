@@ -112,13 +112,13 @@ set_property DIFF_TERM_ADV TERM_100 [get_ports {hbm_ref_clk_n[0]}]
 #set_property PACKAGE_PIN BC25 [get_ports LED_RGB_R]
 #set_property PACKAGE_PIN BB26 [get_ports LED_RGB_G]
 #set_property PACKAGE_PIN BB25 [get_ports LED_RGB_B]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_A]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_B]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_C]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_D]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_RGB_R]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_RGB_G]
-#set_property IOSTANDARD LVCMOS18 [get_ports LED_RGB_B]
+set_property -dict {PACKAGE_PIN BD25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[0]]
+set_property -dict {PACKAGE_PIN BE26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[1]]
+set_property -dict {PACKAGE_PIN BD23 IOSTANDARD LVCMOS18} [get_ports led_tri_o[2]]
+set_property -dict {PACKAGE_PIN BF26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[3]]
+set_property -dict {PACKAGE_PIN BC25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[4]]
+set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[5]]
+set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[6]]
 
 ############# I2C-local (to PMIC) ##################
 #set_property PACKAGE_PIN BB24 [get_ports IIC_scl_io]
@@ -141,8 +141,6 @@ set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
 set_property CONFIG_MODE SPIx4 [current_design]
 set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
-
-
 
 
 create_pblock pblock_ocl_block
