@@ -160,12 +160,13 @@ set_property SNAPPING_MODE ON [get_pblocks dynamic]
 
 create_pblock static
 add_cells_to_pblock [get_pblocks static] [get_cells -quiet [list bd_i/axi2pr bd_i/axi_gpio_0 bd_i/clk_wiz_0 bd_i/hbm bd_i/jtag_axi bd_i/pr2axi bd_i/sys_reset bd_i/util_ds_buf_0 bd_i/util_ds_buf_1 bd_i/xdma bd_i/xlconstant_0]]
-resize_pblock [get_pblocks static] -add {SLICE_X219Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X218Y59}
+resize_pblock [get_pblocks static] -add {SLICE_X220Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X219Y59}
 resize_pblock [get_pblocks static] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y17}
 resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
 resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
 resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
 resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
+
 
 
 
