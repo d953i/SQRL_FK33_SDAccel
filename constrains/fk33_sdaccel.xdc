@@ -148,9 +148,6 @@ add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block
 resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y60:SLICE_X218Y239}
 resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
 resize_pblock [get_pblocks dynamic] -add {DSP48E2_X0Y18:DSP48E2_X30Y89}
-resize_pblock [get_pblocks dynamic] -add {HPIOB_DCI_SNGL_X0Y4:HPIOB_DCI_SNGL_X0Y15}
-resize_pblock [get_pblocks dynamic] -add {HPIO_RCLK_PRBS_X0Y1:HPIO_RCLK_PRBS_X0Y3}
-resize_pblock [get_pblocks dynamic] -add {IOB_X0Y52:IOB_X0Y207}
 resize_pblock [get_pblocks dynamic] -add {LAGUNA_X0Y0:LAGUNA_X29Y119}
 resize_pblock [get_pblocks dynamic] -add {PCIE4CE4_X0Y1:PCIE4CE4_X0Y1}
 resize_pblock [get_pblocks dynamic] -add {RAMB18_X0Y24:RAMB18_X12Y95}
@@ -169,6 +166,7 @@ resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
 resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
 resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
 resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
+
 
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
