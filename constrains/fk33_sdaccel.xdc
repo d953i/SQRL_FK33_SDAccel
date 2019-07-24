@@ -145,14 +145,14 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 create_pblock dynamic
 add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]
-resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y60:SLICE_X219Y239}
+resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y239:SLICE_X116Y239 SLICE_X0Y60:SLICE_X219Y238}
 resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
-resize_pblock [get_pblocks dynamic] -add {DSP48E2_X0Y18:DSP48E2_X30Y89}
-resize_pblock [get_pblocks dynamic] -add {LAGUNA_X0Y0:LAGUNA_X29Y119}
+resize_pblock [get_pblocks dynamic] -add {DSP48E2_X16Y18:DSP48E2_X30Y87 DSP48E2_X0Y18:DSP48E2_X15Y89}
+resize_pblock [get_pblocks dynamic] -add {LAGUNA_X16Y0:LAGUNA_X29Y117 LAGUNA_X0Y0:LAGUNA_X15Y119}
 resize_pblock [get_pblocks dynamic] -add {PCIE4CE4_X0Y1:PCIE4CE4_X0Y1}
-resize_pblock [get_pblocks dynamic] -add {RAMB18_X0Y24:RAMB18_X12Y95}
-resize_pblock [get_pblocks dynamic] -add {RAMB36_X0Y12:RAMB36_X12Y47}
-resize_pblock [get_pblocks dynamic] -add {URAM288_X0Y16:URAM288_X4Y63}
+resize_pblock [get_pblocks dynamic] -add {RAMB18_X8Y24:RAMB18_X12Y93 RAMB18_X0Y24:RAMB18_X7Y95}
+resize_pblock [get_pblocks dynamic] -add {RAMB36_X8Y12:RAMB36_X12Y46 RAMB36_X0Y12:RAMB36_X7Y47}
+resize_pblock [get_pblocks dynamic] -add {URAM288_X2Y16:URAM288_X4Y59 URAM288_X0Y16:URAM288_X1Y63}
 set_property SNAPPING_MODE ON [get_pblocks dynamic]
 
 
