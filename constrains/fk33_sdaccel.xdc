@@ -145,7 +145,7 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 create_pblock dynamic
 add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]
-resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y60:SLICE_X218Y239}
+resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y60:SLICE_X219Y239}
 resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
 resize_pblock [get_pblocks dynamic] -add {DSP48E2_X0Y18:DSP48E2_X30Y89}
 resize_pblock [get_pblocks dynamic] -add {LAGUNA_X0Y0:LAGUNA_X29Y119}
@@ -166,6 +166,7 @@ resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
 resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
 resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
 resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
+
 
 
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
