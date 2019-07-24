@@ -5,7 +5,7 @@
 set_property PACKAGE_PIN AD8 [get_ports {pcie_ref_clk_n[0]}]
 set_property PACKAGE_PIN AD9 [get_ports {pcie_ref_clk_p[0]}]
 
-#create_clock -period 10.000 -name pcie_ref_clk [get_ports pcie_ref_clk_p]
+create_clock -period 10.000 -name pcie_ref_clk [get_ports pcie_ref_clk_p]
 
 # RESET
 set_property PACKAGE_PIN BE24 [get_ports pcie_resetn]
@@ -100,7 +100,7 @@ set_property DIFF_TERM_ADV TERM_100 [get_ports {hbm_ref_clk_n[0]}]
 #set_property EQUALIZATION EQ_LEVEL0 [get_ports hbm_ref_clk_n]
 
 # Not needed for this design, since the block diagram instantiates the clock
-# create_clock -name sys_clk -period 5.000 [get_ports hbm_ref_clk_p]
+create_clock -period 5.000 -name hbm_clk [get_ports hbm_ref_clk_p]
 ########### End System Clock ##########################
 
 ############ LEDs ##################################
@@ -112,13 +112,13 @@ set_property DIFF_TERM_ADV TERM_100 [get_ports {hbm_ref_clk_n[0]}]
 #set_property PACKAGE_PIN BC25 [get_ports LED_RGB_R]
 #set_property PACKAGE_PIN BB26 [get_ports LED_RGB_G]
 #set_property PACKAGE_PIN BB25 [get_ports LED_RGB_B]
-set_property -dict {PACKAGE_PIN BD25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[0]]
-set_property -dict {PACKAGE_PIN BE26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[1]]
-set_property -dict {PACKAGE_PIN BD23 IOSTANDARD LVCMOS18} [get_ports led_tri_o[2]]
-set_property -dict {PACKAGE_PIN BF26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[3]]
-set_property -dict {PACKAGE_PIN BC25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[4]]
-set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports led_tri_o[5]]
-set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports led_tri_o[6]]
+set_property -dict {PACKAGE_PIN BD25 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[0]}]
+set_property -dict {PACKAGE_PIN BE26 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[1]}]
+set_property -dict {PACKAGE_PIN BD23 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[2]}]
+set_property -dict {PACKAGE_PIN BF26 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[3]}]
+set_property -dict {PACKAGE_PIN BC25 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[4]}]
+set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[5]}]
+set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[6]}]
 
 ############# I2C-local (to PMIC) ##################
 #set_property PACKAGE_PIN BB24 [get_ports IIC_scl_io]
@@ -143,10 +143,33 @@ set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 
-create_pblock pblock_ocl_block
-add_cells_to_pblock [get_pblocks pblock_ocl_block] [get_cells -quiet [list bd_i/ocl_block]]
-resize_pblock [get_pblocks pblock_ocl_block] -add {CLOCKREGION_X1Y2:CLOCKREGION_X2Y3}
-set_property SNAPPING_MODE ON [get_pblocks pblock_ocl_block]
+create_pblock dynamic
+add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]
+resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y60:SLICE_X218Y239}
+resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
+resize_pblock [get_pblocks dynamic] -add {DSP48E2_X0Y18:DSP48E2_X30Y89}
+resize_pblock [get_pblocks dynamic] -add {HPIOB_DCI_SNGL_X0Y4:HPIOB_DCI_SNGL_X0Y15}
+resize_pblock [get_pblocks dynamic] -add {HPIO_RCLK_PRBS_X0Y1:HPIO_RCLK_PRBS_X0Y3}
+resize_pblock [get_pblocks dynamic] -add {IOB_X0Y52:IOB_X0Y207}
+resize_pblock [get_pblocks dynamic] -add {LAGUNA_X0Y0:LAGUNA_X29Y119}
+resize_pblock [get_pblocks dynamic] -add {PCIE4CE4_X0Y1:PCIE4CE4_X0Y1}
+resize_pblock [get_pblocks dynamic] -add {RAMB18_X0Y24:RAMB18_X12Y95}
+resize_pblock [get_pblocks dynamic] -add {RAMB36_X0Y12:RAMB36_X12Y47}
+resize_pblock [get_pblocks dynamic] -add {URAM288_X0Y16:URAM288_X4Y63}
+set_property SNAPPING_MODE ON [get_pblocks dynamic]
+
+
+
+
+create_pblock static
+add_cells_to_pblock [get_pblocks static] [get_cells -quiet [list bd_i/axi2pr bd_i/axi_gpio_0 bd_i/clk_wiz_0 bd_i/hbm bd_i/jtag_axi bd_i/pr2axi bd_i/sys_reset bd_i/util_ds_buf_0 bd_i/util_ds_buf_1 bd_i/xdma bd_i/xlconstant_0]]
+resize_pblock [get_pblocks static] -add {SLICE_X219Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X218Y59}
+resize_pblock [get_pblocks static] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y17}
+resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
+resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
+resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
+resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
+
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
