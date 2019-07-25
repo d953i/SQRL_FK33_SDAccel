@@ -1,6 +1,6 @@
 
-set_property pfm_name {squirrelsresearch.com:fk33:fk33platform:2019.1} [get_files {./fk33_sdaccel/fk33_sdaccel.srcs/sources_1/bd/bd/bd.bd}]
-set_property dsa.name {fk33platform} [current_project]
+set_property pfm_name {squirrelsresearch.com:fk33:sqrl_fk33:2019.1} [get_files {./fk33_sdaccel/fk33_sdaccel.srcs/sources_1/bd/bd/bd.bd}]
+set_property dsa.name {sqrl_fk33} [current_project]
 set_property dsa.vendor "squirrelsresearch.com" [current_project]
 set_property dsa.board_id "fk33" [current_project]
 set_property dsa.version {2019.1} [current_project]
