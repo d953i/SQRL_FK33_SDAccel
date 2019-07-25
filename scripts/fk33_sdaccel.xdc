@@ -142,6 +142,8 @@ set_property CONFIG_MODE SPIx4 [current_design]
 set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
+set_property HD.RECONFIGURABLE true [get_cells bd_i/ocl_block]
+set_property DONT_TOUCH true [get_cells bd_i/ocl_block]
 
 create_pblock dynamic
 add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]

@@ -179,7 +179,13 @@ save_bd_design
 add_files -fileset constrs_1 -norecurse $scriptPath/fk33_sdaccel.xdc
 import_files -fileset constrs_1 $scriptPath/fk33_sdaccel.xdc
 
-make_wrapper -files [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd] -top
-add_files -norecurse ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/hdl/bd_wrapper.v
-update_compile_order -fileset sources_1
+#make_wrapper -files [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd] -top
+#add_files -norecurse ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/hdl/bd_wrapper.v
+#update_compile_order -fileset sources_1
 
+
+# Write BD wrapper HDL
+set_property generate_synth_checkpoint true [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd]
+add_files -norecurse [make_wrapper -files [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd] -top]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
