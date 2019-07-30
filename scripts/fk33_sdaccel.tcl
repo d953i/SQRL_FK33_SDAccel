@@ -23,7 +23,9 @@ set scriptPath [file dirname [file normalize [info script]]]
 #puts stdout [file dirname [info script]]
 #return -code 1
 
-create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e
+#create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e
+create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e-es1
+#create_project $ProjectName ./$ProjectFolder -part xcvu9p-fsgd2104-2L-e
 
 create_bd_design "bd"
 
@@ -189,3 +191,6 @@ set_property generate_synth_checkpoint true [get_files ./$ProjectName/$ProjectNa
 add_files -norecurse [make_wrapper -files [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd] -top]
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
+
+set_property strategy Performance_RefinePlacement [get_runs impl_1]
+
