@@ -14,10 +14,10 @@ set_property IOSTANDARD LVCMOS18 [get_ports pcie_resetn]
 # MGT
 
 ######################################################
-set_property PACKAGE_PIN AL2 [get_ports {pcie_rxp[0]}]
-set_property PACKAGE_PIN AL1 [get_ports {pcie_rxn[0]}]
-set_property PACKAGE_PIN Y5 [get_ports {pcie_txp[0]}]
-set_property PACKAGE_PIN Y4 [get_ports {pcie_txn[0]}]
+set_property PACKAGE_PIN AL2  [get_ports {pcie_rxp[0]}]
+set_property PACKAGE_PIN AL1  [get_ports {pcie_rxn[0]}]
+set_property PACKAGE_PIN Y5   [get_ports {pcie_txp[0]}]
+set_property PACKAGE_PIN Y4   [get_ports {pcie_txn[0]}]
 #set_property PACKAGE_PIN AM4 [get_ports {pcie_rxp[1]}]
 #set_property PACKAGE_PIN AM3 [get_ports {pcie_rxn[1]}]
 #set_property PACKAGE_PIN AA7 [get_ports {pcie_txp[1]}]
