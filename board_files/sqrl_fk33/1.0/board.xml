@@ -8,7 +8,7 @@
 </images>
 
 <compatible_board_revisions>
-    <revision id="0">A.3</revision>
+    <revision id="0">1.0</revision>
 </compatible_board_revisions>
 
 <file_version>1.0</file_version>
@@ -405,10 +405,10 @@
             <parameter name="frequency" value="100000000"/>
           </parameters>
         </component>
-    <component name="sysclk_125" display_name="125 MHz System differential clock" type="chip" sub_type="system_clock" major_group="Clock Sources" part_name="SI5335A-B02436-GM" vendor="Si Time" spec_url="www.sitime.com">
+    <component name="sysclk_200" display_name="200 MHz System differential clock" type="chip" sub_type="system_clock" major_group="Clock Sources" part_name="SI5335A-B02436-GM" vendor="Si Time" spec_url="www.sitime.com">
           <description>1.8V LVDS differential 125 MHz oscillator used as differential clock on the board</description>
           <parameters>
-            <parameter name="frequency" value="125000000"/>
+            <parameter name="frequency" value="200000000"/>
           </parameters>
         </component>
     <component name="led_7bits" display_name="LED" type="chip" sub_type="led" major_group="General Purpose Input or Output" part_name="SML-LX0603GW-TR" vendor="LUMEX">
@@ -481,13 +481,8 @@
                 <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
               </preferred_ips>
             </component_mode>		
-    		
           </component_modes>
         </component>
-    <component name="spi_flash" display_name="QSPI flash" type="chip" sub_type="memory_flash_qspi" major_group="External Memory" part_name="MT25QU01GBB8ESF-0SIT" vendor="Microchip" spec_url="www.microchip.com">
-      <description>2G bit of nonvolatile storage that can be used for configuration or data storage</description>
-    </component>	
-
 </components>
 
 <jtag_chains>
