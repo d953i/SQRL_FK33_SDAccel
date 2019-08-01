@@ -4,19 +4,19 @@
     <pin index="0"   name ="IIC_SCL_MAIN" iostandard="LVCMOS18" loc="BB24" drive="8" slew="SLOW"/>
     <pin index="1"   name ="IIC_SDA_MAIN" iostandard="LVCMOS18" loc="BA24" drive="8" slew="SLOW"/>
 
-    <pin index="2"  name ="GPIO_LED_0_LS" iostandard="LVCMOS12" loc="BD25" drive="8"/>
-    <pin index="3"  name ="GPIO_LED_1_LS" iostandard="LVCMOS12" loc="BE26" drive="8"/>
-    <pin index="4"  name ="GPIO_LED_2_LS" iostandard="LVCMOS12" loc="BD23" drive="8"/>
-    <pin index="5"  name ="GPIO_LED_3_LS" iostandard="LVCMOS12" loc="BF26" drive="8"/>
-    <pin index="6"  name ="GPIO_LED_4_LS" iostandard="LVCMOS12" loc="BC25" drive="8"/>
-    <pin index="7"  name ="GPIO_LED_5_LS" iostandard="LVCMOS12" loc="BB26" drive="8"/>
-    <pin index="8"  name ="GPIO_LED_6_LS" iostandard="LVCMOS12" loc="BB25" drive="8"/>
+    <pin index="2"  name ="GPIO_LED_0_LS" iostandard="LVCMOS18" loc="BD25" drive="8"/>
+    <pin index="3"  name ="GPIO_LED_1_LS" iostandard="LVCMOS18" loc="BE26" drive="8"/>
+    <pin index="4"  name ="GPIO_LED_2_LS" iostandard="LVCMOS18" loc="BD23" drive="8"/>
+    <pin index="5"  name ="GPIO_LED_3_LS" iostandard="LVCMOS18" loc="BF26" drive="8"/>
+    <pin index="6"  name ="GPIO_LED_4_LS" iostandard="LVCMOS18" loc="BC25" drive="8"/>
+    <pin index="7"  name ="GPIO_LED_5_LS" iostandard="LVCMOS18" loc="BB26" drive="8"/>
+    <pin index="8"  name ="GPIO_LED_6_LS" iostandard="LVCMOS18" loc="BB25" drive="8"/>
 
     <pin index="9"  name ="pcie_mgt_clkn" loc="AD8"/>
     <pin index="10" name ="pcie_mgt_clkp" loc="AD9"/>
 
     <pin index="11" name ="pcie_perstn_rst" iostandard="LVCMOS18" loc="BE24"/>
-    	
+
     <pin index="12" name ="sysclk_200_p" iostandard="LVDS" loc="BC26"/>
     <pin index="13" name ="sysclk_200_n" iostandard="LVDS" loc="AY23"/>
 
@@ -44,7 +44,7 @@
     <pin index="31" name ="pcie_rx4_n"    loc="AP3"/>
     <pin index="32" name ="pcie_tx4_p"    loc="AD5"/>
     <pin index="33" name ="pcie_tx4_n"    loc="AD4"/>
-    
+
     <pin index="34" name ="pcie_rx5_p"    loc="AR2"/>
     <pin index="35" name ="pcie_rx5_n"    loc="AR1"/>
     <pin index="36" name ="pcie_tx5_p"    loc="AF5"/>
@@ -94,7 +94,7 @@
     <pin index="71" name ="pcie_rx14_n"   loc="BD3"/>
     <pin index="72" name ="pcie_tx14_p"   loc="AR7"/>
     <pin index="73" name ="pcie_tx14_n"   loc="AR6"/>
-    
+
     <pin index="74" name ="pcie_rx15_p"   loc="BE6"/>
     <pin index="75" name ="pcie_rx15_n"   loc="BE5"/>
     <pin index="76" name ="pcie_tx15_p"   loc="AT9"/>

@@ -352,7 +352,7 @@
                             <pin_map port_index="12" component_pin="pcie_tx12_p"/>
                             <pin_map port_index="13" component_pin="pcie_tx13_p"/>
                             <pin_map port_index="14" component_pin="pcie_tx14_p"/>
-                            <pin_map port_index="15" component_pin="pcie_tx15_p"/>              
+                            <pin_map port_index="15" component_pin="pcie_tx15_p"/>
                         </pin_maps>
                     </port_map>
                 <port_map logical_port="rxp" physical_port="pcie_rx0_px16" dir="in" left="15" right="0">
@@ -364,7 +364,7 @@
                             <pin_map port_index="4" component_pin="pcie_rx4_p"/>
                             <pin_map port_index="5" component_pin="pcie_rx5_p"/>
                             <pin_map port_index="6" component_pin="pcie_rx6_p"/>
-                            <pin_map port_index="7" component_pin="pcie_rx7_p"/>              
+                            <pin_map port_index="7" component_pin="pcie_rx7_p"/>
                             <pin_map port_index="8" component_pin="pcie_rx8_p"/> 
                             <pin_map port_index="9" component_pin="pcie_rx9_p"/>
                             <pin_map port_index="10" component_pin="pcie_rx10_p"/>
@@ -383,7 +383,8 @@
             <interface mode="slave" name="pcie_perstn" type="xilinx.com:signal:reset_rtl:1.0" of_component="pci_express">
             <preferred_ips>
                 <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-                <preferred_ip vendor="xilinx.com" library="ip" name="pcie4c_uscale_plus" order="1"/>
+                <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                <preferred_ip vendor="xilinx.com" library="ip" name="pcie4c_uscale_plus" order="2"/>
             </preferred_ips>
             <port_maps>
                 <port_map logical_port="RST" physical_port="pcie_perstn_rst" dir="in">
@@ -400,96 +401,96 @@
         </interfaces>
     </component>
     <component name="pcie_refclk" display_name="PCIe MGT reference Clock" type="chip" sub_type="mgt_clock" major_group="Clock Sources" part_name="pcie_8lane_edge" vendor="Clock" spec_url="">
-          <description>Clock input from PCI Express edge connector</description>
-          <parameters>
+        <description>Clock input from PCI Express edge connector</description>
+        <parameters>
             <parameter name="frequency" value="100000000"/>
-          </parameters>
-        </component>
+        </parameters>
+    </component>
     <component name="sysclk_200" display_name="200 MHz System differential clock" type="chip" sub_type="system_clock" major_group="Clock Sources" part_name="SI5335A-B02436-GM" vendor="Si Time" spec_url="www.sitime.com">
-          <description>1.8V LVDS differential 125 MHz oscillator used as differential clock on the board</description>
-          <parameters>
+        <description>1.8V LVDS differential 200 MHz oscillator used as differential clock on the board</description>
+        <parameters>
             <parameter name="frequency" value="200000000"/>
-          </parameters>
-        </component>
+            <preferred_ip vendor="xilinx.com" library="ip" name="hbm" order="0"/>
+        </parameters>
+    </component>
     <component name="led_7bits" display_name="LED" type="chip" sub_type="led" major_group="General Purpose Input or Output" part_name="SML-LX0603GW-TR" vendor="LUMEX">
-          <description>LEDs, 7 to 0, Active High</description>
-        </component>
+        <description>LEDs, 7 to 0, Active High</description>
+    </component>
     <component name="iic_main" display_name="IIC" type="chip" sub_type="mux" major_group="Miscellaneous">
-          <description>I2C</description>
-        </component>
+        <description>I2C</description>
+    </component>
     <component name="pci_express" display_name="PCI Express" type="chip" sub_type="chip" major_group="Miscellaneous">
-          <description>PCI Express</description>
-          <component_modes>
+        <description>PCI Express</description>
+        <component_modes>
             <component_mode name="pci_express_x1" display_name="pci_express x1 ">
-              <interfaces>
-                <interface name="pci_express_x1"/>
-                <interface name="pcie_perstn" optional="true"/>
-    	    <interface name="pcie_refclk" optional="true"/>
-              </interfaces>
-              <preferred_ips>
-                <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-    			<preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
-                <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
-              </preferred_ips>
+                <interfaces>
+                    <interface name="pci_express_x1"/>
+                    <interface name="pcie_perstn" optional="true"/>
+                    <interface name="pcie_refclk" optional="true"/>
+                </interfaces>
+                <preferred_ips>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="pcie4_uscale_plus" order="2"/>
+                </preferred_ips>
             </component_mode>
-    		<component_mode name="pci_express_x2" display_name="pci_express x2 ">
-              <interfaces>
-                <interface name="pci_express_x2"/>
-                <interface name="pcie_perstn" optional="true"/>
-    	    <interface name="pcie_refclk" optional="true"/>
-              </interfaces>
-              <preferred_ips>
-                <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-    			<preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
-                <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
-              </preferred_ips>
+            <component_mode name="pci_express_x2" display_name="pci_express x2 ">
+                <interfaces>
+                    <interface name="pci_express_x2"/>
+                    <interface name="pcie_perstn" optional="true"/>
+                    <interface name="pcie_refclk" optional="true"/>
+                </interfaces>
+                <preferred_ips>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="pcie4_uscale_plus" order="2"/>
+                </preferred_ips>
             </component_mode>
-    		<component_mode name="pci_express_x4" display_name="pci_express x4 ">
-              <interfaces>
-                <interface name="pci_express_x4"/>
-                <interface name="pcie_perstn" optional="true"/>
-    	    <interface name="pcie_refclk" optional="true"/>
-              </interfaces>
-              <preferred_ips>
-                <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-    			<preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
-                <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
-              </preferred_ips>
+            <component_mode name="pci_express_x4" display_name="pci_express x4 ">
+                <interfaces>
+                    <interface name="pci_express_x4"/>
+                    <interface name="pcie_perstn" optional="true"/>
+                    <interface name="pcie_refclk" optional="true"/>
+                </interfaces>
+                <preferred_ips>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="pcie4_uscale_plus" order="2"/>
+                </preferred_ips>
             </component_mode>
-    		<component_mode name="pci_express_x8" display_name="pci_express x8 ">
-              <interfaces>
-                <interface name="pci_express_x8"/>
-                <interface name="pcie_perstn" optional="true"/>
-    	    <interface name="pcie_refclk" optional="true"/>
-              </interfaces>
-              <preferred_ips>
-                <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-    			<preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
-                <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
-              </preferred_ips>
+            <component_mode name="pci_express_x8" display_name="pci_express x8 ">
+                <interfaces>
+                    <interface name="pci_express_x8"/>
+                    <interface name="pcie_perstn" optional="true"/>
+                    <interface name="pcie_refclk" optional="true"/>
+                </interfaces>
+                <preferred_ips>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="pcie4_uscale_plus" order="2"/>
+                </preferred_ips>
             </component_mode>
-    		
             <component_mode name="pci_express_x16" display_name="pci_express x16 ">
-              <interfaces>
-                <interface name="pci_express_x16"/>
-                <interface name="pcie_perstn" optional="true"/>
-    	    <interface name="pcie_refclk" optional="true"/>
-              </interfaces>
-              <preferred_ips>
-                <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
-    			<preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
-                <!-- <preferred_ip vendor="xilinx.com" library="ip" name="axi_pcie3" order="1"/> -->
-              </preferred_ips>
-            </component_mode>		
-          </component_modes>
-        </component>
+                <interfaces>
+                    <interface name="pci_express_x16"/>
+                    <interface name="pcie_perstn" optional="true"/>
+                    <interface name="pcie_refclk" optional="true"/>
+                </interfaces>
+                <preferred_ips>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="xdma" order="0"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="qdma" order="1"/>
+                    <preferred_ip vendor="xilinx.com" library="ip" name="pcie4_uscale_plus" order="2"/>
+                </preferred_ips>
+            </component_mode>
+        </component_modes>
+    </component>
 </components>
 
 <jtag_chains>
     <jtag_chain name="chain1">
-      <position name="0" component="part0"/>
+        <position name="0" component="part0"/>
     </jtag_chain>
-  </jtag_chains>
+</jtag_chains>
 
 <connections>
     <connection name="part0_iic_main" component1="part0" component2="iic_main">
