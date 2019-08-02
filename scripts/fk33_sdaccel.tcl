@@ -23,9 +23,9 @@ set scriptPath [file dirname [file normalize [info script]]]
 #puts stdout [file dirname [info script]]
 #return -code 1
 
-#create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e
-create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e-es1
-#create_project $ProjectName ./$ProjectFolder -part xcvu9p-fsgd2104-2L-e
+create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e
+#create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e-es1
+
 
 create_bd_design "bd"
 
@@ -34,7 +34,7 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:xdma:4.1 xdma
 set_property -dict [list CONFIG.cfg_mgmt_if {false}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.pl_link_cap_max_link_speed {8.0_GT/s} CONFIG.axisten_freq {250}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.plltype {QPLL1}] [get_bd_cells xdma]
-set_property -dict [list CONFIG.pf0_device_id {9031} CONFIG.PF0_DEVICE_ID_mqdma {9031} CONFIG.PF2_DEVICE_ID_mqdma {9031} CONFIG.PF3_DEVICE_ID_mqdma {9031}] [get_bd_cells xdma]
+set_property -dict [list CONFIG.pf0_device_id {1533} CONFIG.PF0_DEVICE_ID_mqdma {1533} CONFIG.PF2_DEVICE_ID_mqdma {1533} CONFIG.PF3_DEVICE_ID_mqdma {1533}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.xdma_pcie_64bit_en {true} CONFIG.pf0_msix_cap_table_bir {BAR_1:0} CONFIG.pf0_msix_cap_pba_bir {BAR_1:0}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.pcie_blk_locn {PCIE4C_X1Y0} CONFIG.axisten_freq {250} CONFIG.select_quad {GTY_Quad_227}] [get_bd_cells xdma]
 
@@ -91,6 +91,8 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:hbm:1.0 hbm
 set_property -dict [list CONFIG.USER_CLK_SEL_LIST0 {AXI_00_ACLK} CONFIG.USER_SAXI_01 {false} CONFIG.USER_SAXI_02 {false} CONFIG.USER_SAXI_03 {false} CONFIG.USER_SAXI_04 {false} CONFIG.USER_SAXI_05 {false} CONFIG.USER_SAXI_06 {false} CONFIG.USER_SAXI_07 {false} CONFIG.USER_SAXI_08 {false} CONFIG.USER_SAXI_09 {false} CONFIG.USER_SAXI_10 {false} CONFIG.USER_SAXI_11 {false} CONFIG.USER_SAXI_12 {false} CONFIG.USER_SAXI_13 {false} CONFIG.USER_SAXI_14 {false} CONFIG.USER_SAXI_15 {false}] [get_bd_cells hbm]
 set_property -dict [list CONFIG.USER_HBM_REF_CLK_0 {200}] [get_bd_cells hbm]
 set_property -dict [list CONFIG.USER_AXI_CLK_FREQ {250} CONFIG.USER_AXI_INPUT_CLK_FREQ {250} CONFIG.USER_AXI_INPUT_CLK_NS {4.000} CONFIG.USER_AXI_INPUT_CLK_PS {4000} CONFIG.USER_AXI_INPUT_CLK_XDC {4.000} CONFIG.HBM_MMCM_FBOUT_MULT0 {80}] [get_bd_cells hbm]
+set_property -dict [list CONFIG.USER_MC0_TRAFFIC_OPTION {Random} CONFIG.USER_MC1_TRAFFIC_OPTION {Random} CONFIG.USER_MC2_TRAFFIC_OPTION {Random} CONFIG.USER_MC3_TRAFFIC_OPTION {Random} CONFIG.USER_MC4_TRAFFIC_OPTION {Random} CONFIG.USER_MC5_TRAFFIC_OPTION {Random} CONFIG.USER_MC6_TRAFFIC_OPTION {Random} CONFIG.USER_MC7_TRAFFIC_OPTION {Random} CONFIG.USER_MC8_TRAFFIC_OPTION {Random} CONFIG.USER_MC9_TRAFFIC_OPTION {Random} CONFIG.USER_MC10_TRAFFIC_OPTION {Random} CONFIG.USER_MC11_TRAFFIC_OPTION {Random} CONFIG.USER_MC12_TRAFFIC_OPTION {Random} CONFIG.USER_MC13_TRAFFIC_OPTION {Random} CONFIG.USER_MC14_TRAFFIC_OPTION {Random} CONFIG.USER_MC15_TRAFFIC_OPTION {Random}] [get_bd_cells hbm]
+set_property -dict [list CONFIG.USER_MC0_EN_DATA_MASK {false} CONFIG.USER_MC1_EN_DATA_MASK {false} CONFIG.USER_MC2_EN_DATA_MASK {false} CONFIG.USER_MC3_EN_DATA_MASK {false} CONFIG.USER_MC4_EN_DATA_MASK {false} CONFIG.USER_MC5_EN_DATA_MASK {false} CONFIG.USER_MC6_EN_DATA_MASK {false} CONFIG.USER_MC7_EN_DATA_MASK {false} CONFIG.USER_MC8_EN_DATA_MASK {false} CONFIG.USER_MC9_EN_DATA_MASK {false} CONFIG.USER_MC10_EN_DATA_MASK {false} CONFIG.USER_MC11_EN_DATA_MASK {false} CONFIG.USER_MC12_EN_DATA_MASK {false} CONFIG.USER_MC13_EN_DATA_MASK {false} CONFIG.USER_MC14_EN_DATA_MASK {false} CONFIG.USER_MC15_EN_DATA_MASK {false}] [get_bd_cells hbm]
 set_property CONFIG.USER_APB_EN false [get_bd_cells /hbm]
 #make_bd_pins_external  [get_bd_pins hbm/HBM_REF_CLK_0]
 #set_property name hbm_ref [get_bd_ports HBM_REF_CLK_0_0]
