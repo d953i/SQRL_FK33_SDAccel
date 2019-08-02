@@ -166,7 +166,7 @@ connect_bd_net [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins xdma/axi_aclk]
 connect_bd_net [get_bd_pins xdma_reset/peripheral_aresetn] [get_bd_pins axi_gpio_0/s_axi_aresetn]
 connect_bd_net [get_bd_pins pr2axi/M01_ACLK] [get_bd_pins xdma/axi_aclk]
 connect_bd_net [get_bd_pins xdma_reset/peripheral_aresetn] [get_bd_pins pr2axi/M01_ARESETN]
-set_property -dict [list CONFIG.C_GPIO_WIDTH {6} CONFIG.C_ALL_OUTPUTS {1}] [get_bd_cells axi_gpio_0]
+set_property -dict [list CONFIG.C_GPIO_WIDTH {7} CONFIG.C_ALL_OUTPUTS {1}] [get_bd_cells axi_gpio_0]
 make_bd_intf_pins_external  [get_bd_intf_pins axi_gpio_0/GPIO]
 set_property name led [get_bd_intf_ports GPIO_0]
 
