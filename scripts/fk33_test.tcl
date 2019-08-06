@@ -1,5 +1,5 @@
 
-set ProjectName fk33_test
+set ProjectName fk33_test2
 set ProjectFolder ./$ProjectName
 
 #Remove unnecessary files.
@@ -39,6 +39,8 @@ set_property -dict [list CONFIG.vendor_id {D953}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.xdma_pcie_64bit_en {true} CONFIG.pf0_msix_cap_table_bir {BAR_1:0} CONFIG.pf0_msix_cap_pba_bir {BAR_1:0}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.pcie_blk_locn {PCIE4C_X1Y0}] [get_bd_cells xdma]
 set_property -dict [list CONFIG.pf0_device_id {1533} CONFIG.PF0_DEVICE_ID_mqdma {1533} CONFIG.PF2_DEVICE_ID_mqdma {1533} CONFIG.PF3_DEVICE_ID_mqdma {1533}] [get_bd_cells xdma]
+set_property -dict [list CONFIG.pf0_revision_id {A3} CONFIG.pf0_subsystem_vendor_id {D953} CONFIG.pf0_subsystem_id {0001}] [get_bd_cells xdma]
+set_property -dict [list CONFIG.pf0_Use_Class_Code_Lookup_Assistant {true} CONFIG.pf0_base_class_menu {Processing_accelerators} CONFIG.pf0_class_code_base {12} CONFIG.pf0_sub_class_interface_menu {Unknown} CONFIG.pf0_class_code_interface {00} CONFIG.pf0_class_code {120000}] [get_bd_cells xdma]
 
 create_bd_cell -type ip -vlnv xilinx.com:ip:hbm:1.0 hbm
 set_property -dict [list CONFIG.USER_HBM_DENSITY {8GB} CONFIG.USER_HBM_STACK {2} CONFIG.USER_MEMORY_DISPLAY {8192}] [get_bd_cells hbm]
@@ -87,20 +89,17 @@ make_bd_intf_pins_external  [get_bd_intf_pins util_ds_buf_1/CLK_IN_D]
 set_property name hbm_ref [get_bd_intf_ports CLK_IN_D_0]
 set_property -dict [list CONFIG.FREQ_HZ {200000000}] [get_bd_intf_ports hbm_ref]
 
-#Add AXI GPIO to control LED's
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_0
-set_property -dict [list CONFIG.C_GPIO_WIDTH {7} CONFIG.C_ALL_OUTPUTS {1}] [get_bd_cells axi_gpio_0]
-make_bd_intf_pins_external  [get_bd_intf_pins axi_gpio_0/GPIO]
-set_property name led [get_bd_intf_ports GPIO_0]
-
 #Add AXI I2C to control voltages
 create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0
+set_property -dict [list CONFIG.C_GPO_WIDTH {7} CONFIG.C_DEFAULT_VALUE {0x3F}] [get_bd_cells axi_iic_0]
 make_bd_intf_pins_external  [get_bd_intf_pins axi_iic_0/IIC]
 set_property name iic [get_bd_intf_ports IIC_0]
+make_bd_pins_external  [get_bd_pins axi_iic_0/gpo]
+set_property name led [get_bd_ports gpo_0]
 
 #Add AXI interconnect IP
 create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 pcie2hbm
-set_property -dict [list CONFIG.NUM_SI {2} CONFIG.NUM_MI {4}] [get_bd_cells pcie2hbm]
+set_property -dict [list CONFIG.NUM_SI {2} CONFIG.NUM_MI {3}] [get_bd_cells pcie2hbm]
 
 
 
@@ -111,7 +110,6 @@ connect_bd_intf_net -boundary_type upper [get_bd_intf_pins pcie2hbm/S01_AXI] [ge
 connect_bd_intf_net -boundary_type upper [get_bd_intf_pins pcie2hbm/M00_AXI] [get_bd_intf_pins hbm/SAXI_00]
 connect_bd_intf_net -boundary_type upper [get_bd_intf_pins pcie2hbm/M01_AXI] [get_bd_intf_pins hbm/SAXI_16]
 connect_bd_intf_net -boundary_type upper [get_bd_intf_pins pcie2hbm/M02_AXI] [get_bd_intf_pins axi_iic_0/S_AXI]
-connect_bd_intf_net -boundary_type upper [get_bd_intf_pins pcie2hbm/M03_AXI] [get_bd_intf_pins axi_gpio_0/S_AXI]
 
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/S00_ACLK]
@@ -119,13 +117,11 @@ connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/S01_ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/M00_ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/M01_ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/M02_ACLK]
-connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins pcie2hbm/M03_ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins hbm/AXI_00_ACLK]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins hbm/AXI_16_ACLK]
-connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins axi_iic_0/s_axi_aclk]
 connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins jtag_axi/aclk]
-connect_bd_net [get_bd_pins xdma/axi_aclk] [get_bd_pins hbm_reset/slowest_sync_clk]
+
 
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/ARESETN]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/S00_ARESETN]
@@ -133,9 +129,7 @@ connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/S01_ARESETN]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/M00_ARESETN]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/M01_ARESETN]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/M02_ARESETN]
-connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins pcie2hbm/M03_ARESETN]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins jtag_axi/aresetn]
-connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins axi_gpio_0/s_axi_aresetn]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins axi_iic_0/s_axi_aresetn]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins hbm/AXI_00_ARESET_N]
 connect_bd_net [get_bd_pins xdma/axi_aresetn] [get_bd_pins hbm/AXI_16_ARESET_N]
@@ -148,13 +142,10 @@ connect_bd_net [get_bd_pins hbm_reset/peripheral_aresetn] [get_bd_pins clk_wiz_0
 connect_bd_net [get_bd_pins clk_wiz_0/locked] [get_bd_pins hbm_reset/dcm_locked]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins hbm/APB_0_PCLK]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins hbm/APB_1_PCLK]
-
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins hbm_reset/slowest_sync_clk]
 connect_bd_net [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins util_ds_buf_1/IBUF_OUT]
 
-#assign_bd_address
 
-#group_bd_cells static_region [get_bd_cells jtag_axi] [get_bd_cells util_ds_buf_0] [get_bd_cells xdma] [get_bd_cells sys_reset] [get_bd_cells axi_gpio_0] [get_bd_cells axi_apb_bridge_0] [get_bd_cells hbm] [get_bd_cells clk_wiz_0] [get_bd_cells xlconstant_0] [get_bd_cells axi2pr] [get_bd_cells pr2axi]
-#group_bd_cells dynamic_region [get_bd_cells ocl_block]
 regenerate_bd_layout
 save_bd_design
 
@@ -190,7 +181,6 @@ assign_bd_address -offset 0x1C0000000 -range 256M [get_bd_addr_segs {hbm/SAXI_16
 assign_bd_address -offset 0x1D0000000 -range 256M [get_bd_addr_segs {hbm/SAXI_16/HBM_MEM29 }]
 assign_bd_address -offset 0x1E0000000 -range 256M [get_bd_addr_segs {hbm/SAXI_16/HBM_MEM30 }]
 assign_bd_address -offset 0x1F0000000 -range 256M [get_bd_addr_segs {hbm/SAXI_16/HBM_MEM31 }]
-assign_bd_address [get_bd_addr_segs {axi_gpio_0/S_AXI/Reg }]
 assign_bd_address [get_bd_addr_segs {axi_iic_0/S_AXI/Reg }]
 
 exclude_bd_addr_seg [get_bd_addr_segs hbm/SAXI_16/HBM_MEM00] -target_address_space [get_bd_addr_spaces jtag_axi/Data]
@@ -235,5 +225,15 @@ add_files -norecurse ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/hdl/bd_wra
 update_compile_order -fileset sources_1
 
 set_property strategy Performance_RefinePlacement [get_runs impl_1]
+
+
+
+
+create_hw_cfgmem -hw_device [lindex [get_hw_devices xcvu33p_0] 0] [lindex [get_cfgmem_parts {mt25qu256-spi-x1_x2_x4}] 0]
+set_property PROGRAM.BLANK_CHECK  0 [ get_property PROGRAM.HW_CFGMEM [lindex [get_hw_devices xcvu33p_0] 0]]
+set_property PROGRAM.ERASE  1 [ get_property PROGRAM.HW_CFGMEM [lindex [get_hw_devices xcvu33p_0] 0]]
+set_property PROGRAM.CFG_PROGRAM  1 [ get_property PROGRAM.HW_CFGMEM [lindex [get_hw_devices xcvu33p_0] 0]]
+set_property PROGRAM.VERIFY  1 [ get_property PROGRAM.HW_CFGMEM [lindex [get_hw_devices xcvu33p_0] 0]]
+set_property PROGRAM.CHECKSUM  0 [ get_property PROGRAM.HW_CFGMEM [lindex [get_hw_devices xcvu33p_0] 0]]
 
 

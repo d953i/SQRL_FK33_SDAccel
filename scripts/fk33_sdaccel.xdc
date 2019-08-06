@@ -2,14 +2,13 @@
 ########### PCIe ##################################
 
 # REFCLK
-set_property PACKAGE_PIN AD8 [get_ports {pcie_ref_clk_n[0]}]
-set_property PACKAGE_PIN AD9 [get_ports {pcie_ref_clk_p[0]}]
+set_property PACKAGE_PIN AD8 [get_ports {pcie_refclk_clk_n[0]}]
+set_property PACKAGE_PIN AD9 [get_ports {pcie_refclk_clk_p[0]}]
 
-create_clock -period 10.000 -name pcie_ref_clk [get_ports pcie_ref_clk_p]
+create_clock -period 10.000 -name pcie_refclk [get_ports pcie_refclk_clk_p]
 
 # RESET
-set_property PACKAGE_PIN BE24 [get_ports pcie_resetn]
-set_property IOSTANDARD LVCMOS18 [get_ports pcie_resetn]
+set_property -dict {PACKAGE_PIN BE24 IOSTANDARD LVCMOS18} [get_ports pcie_perstn]
 
 # MGT
 
@@ -121,10 +120,8 @@ set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[
 set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports {led_tri_o[6]}]
 
 ############# I2C-local (to PMIC) ##################
-#set_property PACKAGE_PIN BB24 [get_ports IIC_scl_io]
-#set_property PACKAGE_PIN BA24 [get_ports IIC_sda_io]
-#set_property IOSTANDARD LVCMOS18 [get_ports IIC_scl_io]
-#set_property IOSTANDARD LVCMOS18 [get_ports IIC_sda_io]
+set_property -dict {PACKAGE_PIN BB24 IOSTANDARD LVCMOS18} [get_ports iic_scl_io]
+set_property -dict {PACKAGE_PIN BA24 IOSTANDARD LVCMOS18} [get_ports iic_sda_io]
 
 ###############################################################################
 # Additional design / project settings
@@ -142,37 +139,32 @@ set_property CONFIG_MODE SPIx4 [current_design]
 set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
-set_property HD.RECONFIGURABLE true [get_cells bd_i/ocl_block]
-set_property DONT_TOUCH true [get_cells bd_i/ocl_block]
+#set_property HD.RECONFIGURABLE true [get_cells bd_i/ocl_block]
+#set_property DONT_TOUCH true [get_cells bd_i/ocl_block]
 
-create_pblock dynamic
-add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]
-resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y239:SLICE_X116Y239 SLICE_X0Y60:SLICE_X219Y238}
-resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
-resize_pblock [get_pblocks dynamic] -add {DSP48E2_X16Y18:DSP48E2_X30Y87 DSP48E2_X0Y18:DSP48E2_X15Y89}
-resize_pblock [get_pblocks dynamic] -add {LAGUNA_X16Y0:LAGUNA_X29Y117 LAGUNA_X0Y0:LAGUNA_X15Y119}
-resize_pblock [get_pblocks dynamic] -add {PCIE4CE4_X0Y1:PCIE4CE4_X0Y1}
-resize_pblock [get_pblocks dynamic] -add {RAMB18_X8Y24:RAMB18_X12Y93 RAMB18_X0Y24:RAMB18_X7Y95}
-resize_pblock [get_pblocks dynamic] -add {RAMB36_X8Y12:RAMB36_X12Y46 RAMB36_X0Y12:RAMB36_X7Y47}
-resize_pblock [get_pblocks dynamic] -add {URAM288_X2Y16:URAM288_X4Y59 URAM288_X0Y16:URAM288_X1Y63}
-set_property SNAPPING_MODE ON [get_pblocks dynamic]
+#create_pblock dynamic
+#add_cells_to_pblock [get_pblocks dynamic] [get_cells -quiet [list bd_i/ocl_block]]
+#resize_pblock [get_pblocks dynamic] -add {SLICE_X0Y239:SLICE_X116Y239 SLICE_X0Y60:SLICE_X219Y238}
+#resize_pblock [get_pblocks dynamic] -add {CMACE4_X0Y0:CMACE4_X0Y1}
+#resize_pblock [get_pblocks dynamic] -add {DSP48E2_X16Y18:DSP48E2_X30Y87 DSP48E2_X0Y18:DSP48E2_X15Y89}
+#resize_pblock [get_pblocks dynamic] -add {LAGUNA_X16Y0:LAGUNA_X29Y117 LAGUNA_X0Y0:LAGUNA_X15Y119}
+#resize_pblock [get_pblocks dynamic] -add {PCIE4CE4_X0Y1:PCIE4CE4_X0Y1}
+#resize_pblock [get_pblocks dynamic] -add {RAMB18_X8Y24:RAMB18_X12Y93 RAMB18_X0Y24:RAMB18_X7Y95}
+#resize_pblock [get_pblocks dynamic] -add {RAMB36_X8Y12:RAMB36_X12Y46 RAMB36_X0Y12:RAMB36_X7Y47}
+#resize_pblock [get_pblocks dynamic] -add {URAM288_X2Y16:URAM288_X4Y59 URAM288_X0Y16:URAM288_X1Y63}
+#set_property SNAPPING_MODE ON [get_pblocks dynamic]
 
+#create_pblock static
+#add_cells_to_pblock [get_pblocks static] [get_cells -quiet [list bd_i/axi2pr bd_i/axi_gpio_0 bd_i/clk_wiz_0 bd_i/hbm bd_i/jtag_axi bd_i/pr2axi bd_i/sys_reset bd_i/util_ds_buf_0 bd_i/util_ds_buf_1 bd_i/xdma bd_i/xlconstant_0]]
+#resize_pblock [get_pblocks static] -add {SLICE_X220Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X219Y59}
+#resize_pblock [get_pblocks static] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y17}
+#resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
+#resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
+#resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
+#resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
 
-
-
-create_pblock static
-add_cells_to_pblock [get_pblocks static] [get_cells -quiet [list bd_i/axi2pr bd_i/axi_gpio_0 bd_i/clk_wiz_0 bd_i/hbm bd_i/jtag_axi bd_i/pr2axi bd_i/sys_reset bd_i/util_ds_buf_0 bd_i/util_ds_buf_1 bd_i/xdma bd_i/xlconstant_0]]
-resize_pblock [get_pblocks static] -add {SLICE_X220Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X219Y59}
-resize_pblock [get_pblocks static] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y17}
-resize_pblock [get_pblocks static] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
-resize_pblock [get_pblocks static] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y23}
-resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
-resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
-
-
-
-
-set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
-set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
-set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
-connect_debug_port dbg_hub/clk [get_nets clk]
+ 
+#set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+#set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+#set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+#connect_debug_port dbg_hub/clk [get_nets clk]
