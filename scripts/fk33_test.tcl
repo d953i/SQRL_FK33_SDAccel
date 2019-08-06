@@ -26,6 +26,8 @@ set scriptPath [file dirname [file normalize [info script]]]
 create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e
 #create_project $ProjectName ./$ProjectName -part xcvu33p-fsvh2104-2-e-es1
 
+set_param synth.maxThreads 8
+set_param general.maxThreads 12
 
 create_bd_design "bd"
 
@@ -226,9 +228,7 @@ exclude_bd_addr_seg [get_bd_addr_segs hbm/SAXI_00/HBM_MEM31] -target_address_spa
 
 
 #set_property PR_FLOW 1 [current_project]
-
 add_files -fileset constrs_1 -norecurse $scriptPath/fk33_test.xdc
-import_files -fileset constrs_1 $scriptPath/fk33_test.xdc
 
 make_wrapper -files [get_files ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/bd.bd] -top
 add_files -norecurse ./$ProjectName/$ProjectName.srcs/sources_1/bd/bd/hdl/bd_wrapper.v
