@@ -13,10 +13,10 @@ set_property -dict {PACKAGE_PIN BE24 IOSTANDARD LVCMOS18} [get_ports pcie_perstn
 # MGT
 
 ######################################################
-set_property PACKAGE_PIN AL2  [get_ports {pcie_rxp[0]}]
-set_property PACKAGE_PIN AL1  [get_ports {pcie_rxn[0]}]
-set_property PACKAGE_PIN Y5   [get_ports {pcie_txp[0]}]
-set_property PACKAGE_PIN Y4   [get_ports {pcie_txn[0]}]
+set_property PACKAGE_PIN AL2 [get_ports {pcie_rxp[0]}]
+set_property PACKAGE_PIN AL1 [get_ports {pcie_rxn[0]}]
+set_property PACKAGE_PIN Y5 [get_ports {pcie_txp[0]}]
+set_property PACKAGE_PIN Y4 [get_ports {pcie_txn[0]}]
 #set_property PACKAGE_PIN AM4 [get_ports {pcie_rxp[1]}]
 #set_property PACKAGE_PIN AM3 [get_ports {pcie_rxn[1]}]
 #set_property PACKAGE_PIN AA7 [get_ports {pcie_txp[1]}]
@@ -163,8 +163,21 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 #resize_pblock [get_pblocks static] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y11}
 #resize_pblock [get_pblocks static] -add {URAM288_X0Y0:URAM288_X4Y15}
 
- 
+
 #set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 #set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 #set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
 #connect_debug_port dbg_hub/clk [get_nets clk]
+
+create_pblock xdma_hbm_pblock
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {SLICE_X221Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X220Y30}
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y5}
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y11}
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y5}
+resize_pblock [get_pblocks xdma_hbm_pblock] -add {URAM288_X0Y0:URAM288_X4Y7}
+set_property MARK_DEBUG false [get_nets bd_i/xdma/inst/pcie4c_ip_i/inst/store_ltssm]
+set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets clk]
